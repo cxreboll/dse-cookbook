@@ -48,6 +48,7 @@ ssl_password_file = "#{node['cassandra']['dse']['cassandra_ssl_dir']}/#{node['ca
 template "#{node['cassandra']['dse']['conf_dir']}/cassandra/cassandra.yaml" do
   source "cassandra_yaml/cassandra_#{node['cassandra']['dse_version']}.yaml.erb"
   variables(
+    :cassandra_root_dir => node['cassandra']['root_dir'],
     :dir => node['cassandra']['data_dir'],
     # lazily get the password, since it will be created for the first time before this. then strip off the newline (this is only for ssl)
     :ssl_password => lazy do
